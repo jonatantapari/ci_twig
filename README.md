@@ -15,22 +15,22 @@ git clone https://github.com/jonatantapari/ci_twig.git ci_twig
 git clone https://github.com/twigphp/Twig.git twig
 ```
 
->Create a twig view in "_%codeigniter path%/application/views/_":
+>Create a twig view in "_%codeigniter path%/application/views/_". For example a create a view named test.html:
 
-```html test.html
+```html
 <html>
 <head>
     <title>Test Twig</title>
 </head>
 <body>
-    
+    {{ msg }}
 </body>
 </html>
 ```
 
->Load twig library:
+>Load twig library. For example create a controller named TestTwig.php:
 
-```php TestTwig.php
+```php
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class TestTwig extends CI_Controller
 {
@@ -40,7 +40,7 @@ class TestTwig extends CI_Controller
         $this->load->library('ci_twig/twig');
 
         //Render a view
-        echo $this->twig->environment->render('test.html',array('msg'=>'Hola mundo'));
+        echo $this->twig->environment->render('test.html',array('msg'=>'Hello world'));
     }
 }
 ?>
@@ -48,7 +48,7 @@ class TestTwig extends CI_Controller
 
 >If you wish. You can Configurate twig in "_%codeigniter path%/appliaction/config/config.php_":
 
-```php config.php
+```php
 <?php
 //...
 
