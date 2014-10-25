@@ -15,7 +15,7 @@ git clone https://github.com/jonatantapari/ci_twig.git ci_twig
 git clone https://github.com/twigphp/Twig.git twig
 ```
 
->Create a twig view in "_%codeigniter path%/application/views/_". For example a create a view named test.html:
+>Create a twig view in "_%codeigniter path%/application/views/_". For example, a create a view named test.html:
 
 ```html
 <html>
@@ -28,7 +28,7 @@ git clone https://github.com/twigphp/Twig.git twig
 </html>
 ```
 
->Load twig library. For example create a controller named TestTwig.php:
+>Load twig library. For example, create a controller named TestTwig.php:
 
 ```php
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
