@@ -16,6 +16,8 @@ class Twig
 	 */
 	public $environment;
 
+	protected $twigextra;
+
 	function __construct()
 	{
 		$this->CI = & get_instance();
@@ -25,9 +27,12 @@ class Twig
 	protected function init()
 	{
 		Twig_Autoloader::register();
+
 		$twigconfig = $this->getConfig();
+		$this->loadTwigExtra();
 
 		$_apppath = FCPATH.APPPATH;
+		$twig_functions = $this->getTwigFunctions();
 
 		$loader = new Twig_Loader_Filesystem($_apppath.$twigconfig['twig_template_path']);
 		$this->environment = new Twig_Environment($loader,array(
@@ -38,6 +43,12 @@ class Twig
 													'autoescape'=>$twigconfig['twig_autoescape'],
 													'optimizations'=>$twigconfig['twig_optimizations'],
 													'charset'=>$twigconfig['twig_charset']));
+
+		foreach($twig_functions as $twig_fnc)
+		{
+			$twig_function = new Twig_SimpleFunction($twig_fnc,$twig_fnc);
+			$this->environment->addFunction($twig_function);
+		}
 	}
 
 	/**
@@ -72,6 +83,37 @@ class Twig
 		}
 
 		return $twigconfig;
+	}
+
+	function getTwigFunctions()
+	{
+		$result = array();
+		
+		if(isset($this->twigextra['functions']))
+		{
+			$result = $this->twigextra['functions'];
+		}
+
+		return $result;
+	}
+
+	function loadTwigExtra()
+	{
+		$twigfile = FCPATH.APPPATH.'config/twig.php';	
+
+		if(file_exists($twigfile))
+		{
+			include $twigfile;
+		}
+
+		if(isset($twig))
+		{
+			$this->twigextra = $twig;
+		}
+		else
+		{
+			$this->twigextra=array();
+		}
 	}
 
 }
